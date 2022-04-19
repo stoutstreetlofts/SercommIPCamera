@@ -41,6 +41,7 @@ metadata {
         command "configure"
         command "vidOn"
         command "vidOff"
+	command "viewcam"
         
 	}
 
@@ -529,6 +530,7 @@ def start() {
 	def dataLiveVideo = [
 		OutHomeURL  : "rtsp://${state.cameraUser}:${state.cameraPassword}@${state.videoIP}:${state.videoPort}/img/media.sav",
 		InHomeURL   : "rtsp://${state.cameraUser}:${state.cameraPassword}@${state.videoIP}:${state.videoPort}/img/media.sav",
+		CamViewURL  : "http://${state.videoIP}:${state.videoPort}/img/video.mjpeg",
 		ThumbnailURL: "http://cdn.device-icons.smartthings.com/camera/dlink-indoor@2x.png",
 		cookie      : [key: "key", value: "value"]
 	]
@@ -575,6 +577,10 @@ def configure(){
     state.videoPort = parent.state.VideoPort
     state.cameraUser = parent.state.CameraUser
     state.cameraPassword = parent.state.CameraPassword 
+}
+
+def getCamViewURL() {
+    [CamViewURL: "http://${state.videoIP}:${state.videoPort}/img/video.mjpeg"] 
 }
 
 def getInHomeURL() {
